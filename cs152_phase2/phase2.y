@@ -20,21 +20,89 @@
 %type <op_val> IDENT
 
 %% 
-input:	
-			| input line
-			;
+program:    program function {}
+            | {}
+            ;
 
-line:		exp EQUAL END         { printf("\t%f\n", $1);}
-			;
+function:   FUNCTION IDENT SEMICOLON BEGIN_PARAMS declarations END_PARAMS BEGIN_LOCALS declarations END_LOCALS BEGIN_BODY statements END_BODY {}
+            ;
 
-exp:		NUMBER                { $$ = $1; }
-			| exp PLUS exp        { $$ = $1 + $3; }
-			| exp MINUS exp       { $$ = $1 - $3; }
-			| exp MULT exp        { $$ = $1 * $3; }
-			| exp DIV exp         { if ($3==0) yyerror("divide by zero"); else $$ = $1 / $3; }
-			| MINUS exp %prec UMINUS { $$ = -$2; }
-			| L_PAREN exp R_PAREN { $$ = $2; }
-			;
+declarations:  declarations declaration SEMICOLON {}
+               | {}
+               ;
+
+statements: statements statement SEMICOLON {}
+            | statement SEMICOLON {}
+            ;
+
+declaration:   identifiers arrays INTEGER
+               ;
+
+identifiers:   IDENT COMMA identifiers{}
+               | identifiers COLON {}
+               ;
+
+arrays:  ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF {}
+         | {}
+         ;
+
+statement:  var ASSIGN expression {}
+            | IF bool_exp THEN statements state_b ENDIF {}
+            | WHILE bool_exp BEGINLOOP statements ENDLOOP {}
+            | DO BEGINLOOP statements ENDLOOP WHILE bool_exp {}
+            | READ vars {}
+            | WRITE vars {}
+            | CONTINUE {}
+            | RETURN expression {}
+            ;
+
+state_b: ELSE statements {}
+         | {}
+         ;
+
+vars: var COMMA vars {}
+      | var {}
+      ;
+
+bool_exp:   and_exp {}
+            | and_exp OR and_exp {}
+            ;
+
+and_exp:    relation {}
+            | relation AND relation {}
+            ;
+
+relation:   relation2 {}
+            | NOT relation2 {}
+            ;
+
+relation2:  expression comp expression {}
+            | TRUE {}
+            | FALSE {}
+            | L_PAREN bool_exp R_PAREN {}
+            ;
+
+comp: EQ {}
+      | LT GT {}
+      | LT {}
+      | GT {}
+      | LTE {}
+      | GTE {}
+      ;
+
+expression: mult_exp {}
+            | mult_exp ADD mult_exp {}
+            | mult_exp SUB mult_exp {}
+            ;
+
+mult_exp:   term {}
+            | term MULT term {}
+            | term DIV term {}
+            | term MOD term {}
+            ;
+
+term: 
+
 %%
 
 int main(int argc, char **argv) {

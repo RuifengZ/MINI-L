@@ -605,9 +605,10 @@ int yy_flex_debug = 0;
 char *yytext;
 #line 1 "phase2.lex"
 #line 2 "phase2.lex"
+   #include "y.tab.h"
    int currLine = 1, currPos = 1;
-#line 610 "lex.yy.c"
 #line 611 "lex.yy.c"
+#line 612 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -824,10 +825,10 @@ YY_DECL
 		}
 
 	{
-#line 12 "phase2.lex"
+#line 13 "phase2.lex"
 
 
-#line 831 "lex.yy.c"
+#line 832 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -886,252 +887,252 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 14 "phase2.lex"
+#line 15 "phase2.lex"
 {currPos += yyleng; return FUNCTION;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 15 "phase2.lex"
+#line 16 "phase2.lex"
 {currPos += yyleng; return BEGIN_PARAMS;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 16 "phase2.lex"
+#line 17 "phase2.lex"
 {currPos += yyleng; return END_PARAMS;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 17 "phase2.lex"
+#line 18 "phase2.lex"
 {currPos += yyleng; return BEGIN_LOCALS;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 18 "phase2.lex"
+#line 19 "phase2.lex"
 {currPos += yyleng; return END_LOCALS;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 19 "phase2.lex"
+#line 20 "phase2.lex"
 {currPos += yyleng; return BEGIN_BODY;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 20 "phase2.lex"
+#line 21 "phase2.lex"
 {currPos += yyleng; return END_BODY;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 21 "phase2.lex"
+#line 22 "phase2.lex"
 {currPos += yyleng; return INTEGER;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 22 "phase2.lex"
+#line 23 "phase2.lex"
 {currPos += yyleng; return ARRAY;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 23 "phase2.lex"
+#line 24 "phase2.lex"
 {currPos += yyleng; return OF;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 24 "phase2.lex"
+#line 25 "phase2.lex"
 {currPos += yyleng; return IF;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 25 "phase2.lex"
+#line 26 "phase2.lex"
 {currPos += yyleng; return THEN;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 26 "phase2.lex"
+#line 27 "phase2.lex"
 {currPos += yyleng; return ENDIF;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 27 "phase2.lex"
+#line 28 "phase2.lex"
 {currPos += yyleng; return ELSE;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 28 "phase2.lex"
+#line 29 "phase2.lex"
 {currPos += yyleng; return WHILE;}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 29 "phase2.lex"
+#line 30 "phase2.lex"
 {currPos += yyleng; return DO;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 30 "phase2.lex"
+#line 31 "phase2.lex"
 {currPos += yyleng; return BEGINLOOP;}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 31 "phase2.lex"
+#line 32 "phase2.lex"
 {currPos += yyleng; return ENDLOOP;}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 32 "phase2.lex"
+#line 33 "phase2.lex"
 {currPos += yyleng; return CONTINUE;}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 33 "phase2.lex"
+#line 34 "phase2.lex"
 {currPos += yyleng; return READ;}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 34 "phase2.lex"
+#line 35 "phase2.lex"
 {currPos += yyleng; return WRITE;}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 35 "phase2.lex"
+#line 36 "phase2.lex"
 {currPos += yyleng; return AND;}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 36 "phase2.lex"
+#line 37 "phase2.lex"
 {currPos += yyleng; return OR;}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 37 "phase2.lex"
+#line 38 "phase2.lex"
 {currPos += yyleng; return NOT;}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 38 "phase2.lex"
+#line 39 "phase2.lex"
 {currPos += yyleng; return TRUE;}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 39 "phase2.lex"
+#line 40 "phase2.lex"
 {currPos += yyleng; return FALSE;}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 40 "phase2.lex"
+#line 41 "phase2.lex"
 {currPos += yyleng; return RETURN;}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 42 "phase2.lex"
+#line 43 "phase2.lex"
 {currPos += yyleng; return SUB;}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 43 "phase2.lex"
+#line 44 "phase2.lex"
 {currPos += yyleng; return ADD;}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 44 "phase2.lex"
+#line 45 "phase2.lex"
 {currPos += yyleng; return MULT;}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 45 "phase2.lex"
+#line 46 "phase2.lex"
 {currPos += yyleng; return DIV;}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 46 "phase2.lex"
+#line 47 "phase2.lex"
 {currPos += yyleng; return MOD;}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 48 "phase2.lex"
+#line 49 "phase2.lex"
 {currPos += yyleng; return EQ;}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 49 "phase2.lex"
+#line 50 "phase2.lex"
 {currPos += yyleng; return NEQ;}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 50 "phase2.lex"
+#line 51 "phase2.lex"
 {currPos += yyleng; return LT;}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 51 "phase2.lex"
+#line 52 "phase2.lex"
 {currPos += yyleng; return GT;}
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 52 "phase2.lex"
+#line 53 "phase2.lex"
 {currPos += yyleng; return LTE;}
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 53 "phase2.lex"
+#line 54 "phase2.lex"
 {currPos += yyleng; return GTE;}
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 55 "phase2.lex"
-{currPos += yyleng; return IDENT;}
+#line 56 "phase2.lex"
+{currPos += yyleng; yylval.ident_val = yytext; return IDENT;}
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 56 "phase2.lex"
-{currPos += yyleng; return NUMBER;}
+#line 57 "phase2.lex"
+{currPos += yyleng; yylval.num_val = atoi(yytext); return NUMBER;}
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 58 "phase2.lex"
+#line 59 "phase2.lex"
 {currPos += yyleng; return SEMICOLON;}
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 59 "phase2.lex"
+#line 60 "phase2.lex"
 {currPos += yyleng; return COLON;}
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 60 "phase2.lex"
+#line 61 "phase2.lex"
 {currPos += yyleng; return COMMA;}
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 61 "phase2.lex"
+#line 62 "phase2.lex"
 {currPos += yyleng; return L_PAREN;}
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 62 "phase2.lex"
+#line 63 "phase2.lex"
 {currPos += yyleng; return R_PAREN;}
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 63 "phase2.lex"
+#line 64 "phase2.lex"
 {currPos += yyleng; return L_SQUARE_BRACKET;}
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 64 "phase2.lex"
+#line 65 "phase2.lex"
 {currPos += yyleng; return R_SQUARE_BRACKET;}
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 65 "phase2.lex"
+#line 66 "phase2.lex"
 {currPos += yyleng; return ASSIGN;}
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 67 "phase2.lex"
+#line 68 "phase2.lex"
 {currPos += yyleng;}
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 69 "phase2.lex"
+#line 70 "phase2.lex"
 {/* ignore spaces */ currPos += yyleng;}
 	YY_BREAK
 case 51:
@@ -1160,7 +1161,7 @@ YY_RULE_SETUP
 #line 77 "phase2.lex"
 ECHO;
 	YY_BREAK
-#line 1164 "lex.yy.c"
+#line 1165 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2166,23 +2167,4 @@ void yyfree (void * ptr )
 #define YYTABLES_NAME "yytables"
 
 #line 77 "phase2.lex"
-
-
-int main(int argc, char ** argv)
-{
-   if(argc >= 2)
-   {
-      yyin = fopen(argv[1], "r");
-      if(yyin == NULL)
-      {
-         yyin = stdin;
-      }
-   }
-   else
-   {
-      yyin = stdin;
-   }
-   
-   yylex();
-}
 

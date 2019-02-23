@@ -1,4 +1,5 @@
-%{   
+%{
+   #include "y.tab.h"
    int currLine = 1, currPos = 1;
 %}
 
@@ -52,8 +53,8 @@ COMMENT  "##"(.)*
 "<="            {currPos += yyleng; return LTE;}
 ">="            {currPos += yyleng; return GTE;}
 
-{IDENT}+        {currPos += yyleng; return IDENT;}
-{DIGIT}+        {currPos += yyleng; return NUMBER;}
+{IDENT}+        {currPos += yyleng; yylval.ident_val = yytext; return IDENT;}
+{DIGIT}+        {currPos += yyleng; yylval.num_val = atoi(yytext); return NUMBER;}
 
 ";"		{currPos += yyleng; return SEMICOLON;}
 ":"		{currPos += yyleng; return COLON;}
@@ -67,7 +68,6 @@ COMMENT  "##"(.)*
 {COMMENT}	{currPos += yyleng;}
 
 [ \t]+         {/* ignore spaces */ currPos += yyleng;}
-
 "\n"           {currLine++; currPos = 1;}
 
 {ERR1}         {printf("Error at line %d, column %d: identifier must begin with a letter \"%s\"\n", currLine, currPos, yytext); exit(0);}
@@ -75,21 +75,3 @@ COMMENT  "##"(.)*
 .              {printf("Error at line %d, column %d: unrecognized symbol \"%s\"\n", currLine, currPos, yytext); exit(0);}
 
 %%
-
-int main(int argc, char ** argv)
-{
-   if(argc >= 2)
-   {
-      yyin = fopen(argv[1], "r");
-      if(yyin == NULL)
-      {
-         yyin = stdin;
-      }
-   }
-   else
-   {
-      yyin = stdin;
-   }
-   
-   yylex();
-}

@@ -9,99 +9,135 @@
 %}
 
 %union{
-  int int_val;
-  string* op_val;
+  int num_val;
+  char* ident_val;
 }
 
 %error-verbose
 %start program
 %token FUNCTION BEGIN_PARAMS END_PARAMS BEGIN_LOCALS END_LOCALS BEGIN_BODY END_BODY INTEGER ARRAY OF IF THEN ENDIF ELSE WHILE DO BEGINLOOP ENDLOOP CONTINUE READ WRITE AND OR NOT TRUE FALSE RETURN SUB ADD MULT DIV MOD EQ NEQ LT GT LTE GTE SEMICOLON COLON COMMA L_PAREN R_PAREN L_SQUARE_BRACKET R_SQUARE_BRACKET ASSIGN
-%token <int_val> NUMBER
-%type <op_val> IDENT
+%token IDENT NUMBER
+%type <num_val> NUMBER
+%type <ident_val> IDENT
 
 %% 
-program:    program function {}
-            | {}
+program:    function program {printf("program -> program function\n");}
+            | {printf("program -> epsilon\n");}
             ;
 
-function:   FUNCTION IDENT SEMICOLON BEGIN_PARAMS declarations END_PARAMS BEGIN_LOCALS declarations END_LOCALS BEGIN_BODY statements END_BODY {}
+function:   FUNCTION ident SEMICOLON BEGIN_PARAMS declarations END_PARAMS BEGIN_LOCALS declarations END_LOCALS BEGIN_BODY statements END_BODY {printf("function -> FUNCTION ident SEMICOLON BEGIN_PARAMS declarations END_PARAMS BEGIN_LOCALS declarations END_LOCALS BEGIN_BODY statements END_BODY\n");}
             ;
 
-declarations:  declarations declaration SEMICOLON {}
-               | {}
-               ;
-
-statements: statements statement SEMICOLON {}
-            | statement SEMICOLON {}
+statements: statement SEMICOLON statements {printf("statements -> statement SEMICOLON statements\n");}
+            | statement SEMICOLON {printf("statements -> statement SEMICOLON\n");}
             ;
 
-declaration:   identifiers arrays INTEGER
+declarations:  declaration SEMICOLON declarations {printf("declarations -> declaration SEMICOLON declarations\n");}
+               | {printf("declarations -> epsilon\n");}
                ;
 
-identifiers:   IDENT COMMA identifiers{}
-               | identifiers COLON {}
+declaration:   identifiers COLON arrays INTEGER {printf("declarations -> identifiers COLON arrays INTEGER\n");}
                ;
 
-arrays:  ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF {}
-         | {}
+
+identifiers:   ident COMMA identifiers {printf("identifiers -> ident COMMA identifiers\n");}
+               | ident {printf("identifiers -> ident\n");}
+               ;
+
+arrays:  ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF {printf("arrays -> ARRAY L_SQUARE_BRACKET NUMBER %d R_SQUARE_BRACKET OF\n", $3);}
+         | {printf("arrays -> epsilon\n");}
          ;
 
-statement:  var ASSIGN expression {}
-            | IF bool_exp THEN statements state_b ENDIF {}
-            | WHILE bool_exp BEGINLOOP statements ENDLOOP {}
-            | DO BEGINLOOP statements ENDLOOP WHILE bool_exp {}
-            | READ vars {}
-            | WRITE vars {}
-            | CONTINUE {}
-            | RETURN expression {}
+statement:  var ASSIGN expression {printf("statement -> var ASSIGN expression\n");}
+            | IF bool_exp THEN statements state_b ENDIF {printf("statement -> IF bool_exp THEN statements state_b ENDIF\n");}
+            | WHILE bool_exp BEGINLOOP statements ENDLOOP {printf("statement -> WHILE bool_exp BEGINLOOP statements ENDLOOP\n");}
+            | DO BEGINLOOP statements ENDLOOP WHILE bool_exp {printf("statement -> DO BEGINLOOP statements ENDLOOP WHILE bool_exp\n");}
+            | READ vars {printf("statement -> READ vars\n");}
+            | WRITE vars {printf("statement -> WRITE vars\n");}
+            | CONTINUE {printf("statement -> CONTINUE\n");}
+            | RETURN expression {printf("statement -> RETURN expression\n");}
             ;
 
-state_b: ELSE statements {}
-         | {}
+state_b: ELSE statements {printf("state_b -> ELSE statements\n");}
+         | {printf("state_b -> epsilon\n");}
          ;
 
-vars: var COMMA vars {}
-      | var {}
+vars: var COMMA vars {printf("vars -> var COMMA vars\n");}
+      | var {printf("vars -> var\n");}
       ;
 
-bool_exp:   and_exp {}
-            | and_exp OR and_exp {}
+bool_exp:   and_exp bool_exp2 {printf("and_exp -> and_exp bool_exp2\n");} 
             ;
 
-and_exp:    relation {}
-            | relation AND relation {}
+bool_exp2:  OR and_exp bool_exp2 {printf("bool_exp2 -> OR and_exp bool_exp2\n");}
+            | {printf("bool_exp2 -> OR and_exp bool_exp2");}
             ;
 
-relation:   relation2 {}
-            | NOT relation2 {}
+and_exp:    relation and_exp2 {printf("and_exp -> relation and_exp2\n");}
             ;
 
-relation2:  expression comp expression {}
-            | TRUE {}
-            | FALSE {}
-            | L_PAREN bool_exp R_PAREN {}
+and_exp2:   AND relation and_exp2 {printf("and_exp2 -> AND relation and_exp2");}
+            | {printf("and_exp2 -> epsilon");}
             ;
 
-comp: EQ {}
-      | LT GT {}
-      | LT {}
-      | GT {}
-      | LTE {}
-      | GTE {}
+relation:   relation2 {printf("relation -> relation2\n");}
+            | NOT relation2 {printf("relation -> NOT relation2\n");}
+            ;
+
+relation2:  expression comp expression {printf("relation2 -> expression comp expression\n");}
+            | TRUE {printf("relation2 -> TRUE\n");}
+            | FALSE {printf("relation2 -> FALSE\n");}
+            | L_PAREN bool_exp R_PAREN {printf("relation2 -> L_PAREN bool_exp R_PAREN\n");}
+            ;
+
+comp: EQ {printf("comp -> EQ\n");}
+      | NEQ {printf("comp -> NEQ\n");}
+      | LT {printf("comp -> LT\n");}
+      | GT {printf("comp -> GT\n");}
+      | LTE {printf("comp -> LTE\n");}
+      | GTE {printf("comp -> GTE\n");}
       ;
 
-expression: mult_exp {}
-            | mult_exp ADD mult_exp {}
-            | mult_exp SUB mult_exp {}
+expression: mult_exp expression2 {printf("expression -> mult_exp expression2\n");}
             ;
 
-mult_exp:   term {}
-            | term MULT term {}
-            | term DIV term {}
-            | term MOD term {}
+expression2:   SUB mult_exp expression2 {printf("expression2 -> SUB mult_exp expression2\n");}
+               | ADD mult_exp expression2 {printf("expression2 -> ADD mult_exp expression2\n");}
+               | {printf("expression2 -> epsilon\n");}
+               ;
+
+mult_exp:   term mult_exp2 {printf("mult_exp -> term\n");}
             ;
 
-term: 
+mult_exp2:  MULT term mult_exp2 {printf("mult_exp2 -> MULT term mult_exp2\n");}
+            | DIV term mult_exp2 {printf("mult_exp2 -> DIV term mult_exp2\n");}
+            | MOD term mult_exp2 {printf("mult_exp2 -> MOD term mult_exp2\n");}
+            | {printf("mult_exp2 -> epsilon\n");}
+            ;
+
+term:    SUB term2 {printf("term -> SUB term2\n");}
+         | term2 {printf("term -> term2\n");}
+         | term3 {printf("term -> term3\n");}
+         ;
+
+term2:   var {printf("term2 -> var\n");}
+         | NUMBER {printf("term2 -> NUMBER %d\n", $1);}
+         | L_PAREN expression R_PAREN {printf("term2 -> L_PAREN expression R_PAREN\n");}
+         ;
+
+term3:   ident L_PAREN term4 R_PAREN {printf("term3 -> ident L_PAREN term4 R_PAREN\n");}
+         ;
+
+term4:   expression {printf("expression -> expression\n");}
+         | expression COMMA term4 {printf("expression -> expression COMMA term4\n");}
+         | {printf("expression -> epsilon\n");}
+         ;
+
+var:  ident {printf("var -> ident\n");}
+      | ident L_SQUARE_BRACKET expression R_SQUARE_BRACKET {printf("var -> ident L_SQUARE_BRACKET expression R_SQUARE_BRACKET\n" );}
+      ;
+
+ident: IDENT {printf("ident -> IDENT %s\n", $1);}
 
 %%
 

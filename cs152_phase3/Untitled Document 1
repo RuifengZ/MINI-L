@@ -1,0 +1,17 @@
+struct E{
+ string code = "";
+}
+
+struct A{
+ string code = "";
+}
+
+struct B{
+ string code = "";
+}
+
+%type <E> Exp
+
+programStart.code
+
+Exp -> Alph + Beth { $$.code = $1.code + '+' + $2.code }
